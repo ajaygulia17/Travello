@@ -1,0 +1,137 @@
+{% load static%}
+{% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Add Package</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/roboto-font.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/line-awesome/css/line-awesome.min.css' %}">
+	<!-- Jquery -->
+	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            var demovalue = $(this).val(); 
+            $("div.myDiv").hide();
+            $("#show"+demovalue).show();
+        });
+    });
+</script>
+<style>
+.myDiv{
+	display:none;
+    padding:10px;
+}  
+</style>
+<body class="form-v2">
+	<div class="page-content">
+		<div class="form-v2-content">
+			<div class="form-left">
+				<img src="{% static 'images/form-v2.jpg' %}" alt="form">
+				<div class="text-1">
+					<p>Bring Your Music Along<span>try Unlimited</span></p>
+				</div>
+			</div>
+			<form class="form-detail" enctype="multipart/form-data" action="addpackage" method="post">
+				<h2>Add Package</h2>
+				{% csrf_token %}
+                {{ form.as_p }}  
+				<div class="form-row">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" class="input-text" placeholder="ex: Bali tour package">
+				</div>
+                <div class="form-row">
+					<label for="name">Destination Type: </label><br>
+					<input type="radio" name="demo" value="One"/> Existing<br>
+                    <input type="radio" name="demo" value="Two"/> New<br>
+				</div>
+                <div id="showOne" class="myDiv">
+                    <div class="form-row">
+					<label for="destination">Destination: </label>
+					<select name="existingDestination" id="existingDestination">
+                        {% for dest in dests %}
+                        <option value="{{dest.id}}">{{dest.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <br><br>
+                    </div>
+				</div>
+				<div id="showTwo" class="myDiv">
+                    <div class="form-row">
+                        <label for="destination">Destination:</label>
+                        <input type="text" name="destination" id="destination" class="input-text" placeholder="ex: Bali">
+                    </div>
+                    <div class="form-row">
+                        <label for="last-name">Description of Destination</label>
+                        <input type="text" name="desc" id="desc" class="input-text" >
+                    </div>
+				</div>
+				<div class="form-row">
+					<label for="last-name">Duration:</label>
+					<input type="text" name="duration" id="duration" class="input-text" placeholder="ex: 05 Nights / 06 Days">
+				</div>
+                <div class="form-row">
+					<label for="">Img:</label>
+					<input type="file" name="img" accept="image/*" required="" id="img">
+				</div>
+				<div class="form-row">
+					<label for="">Price:</label>
+					<input type="text" name="price" id="price" class="input-text" required pattern="[0-9]{1,}">
+				</div>
+				<div class="form-checkbox">
+					<label class="container"><p>Special Offer </p><p>This data will be saved permanently!</p>
+					  	<input type="checkbox" name="special" id="special" defaultvalue="off">
+					  	<span class="checkmark"></span>
+					</label>
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="addpackage" class="register" >
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script>
+		// just for the demos, avoids form submit
+		jQuery.validator.setDefaults({
+		  	debug: true,
+		  	success:  function(label){
+        		label.attr('id', 'valid');
+   		 	},
+		});
+		$( "#myform" ).validate({
+		  	rules: {
+		    	password: "required",
+		    	confirm_password: {
+		      		equalTo: "#password"
+		    	}
+		  	},
+		  	messages: {
+		  		full_name: {
+		  			required: "Please provide an username"
+		  		},
+		  		your_email: {
+		  			required: "Please provide an email"
+		  		},
+		  		password: {
+	  				required: "Please provide a password"
+		  		},
+		  		confirm_password: {
+		  			required: "Please provide a password",
+		      		equalTo: "Wrong Password"
+		    	}
+		  	}
+		});
+	</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

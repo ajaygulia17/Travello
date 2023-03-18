@@ -8,3 +8,11 @@ class Destination(models.Model):
     desc = models.CharField(max_length=100)
     price = models.IntegerField()
     special = models.BooleanField(default=False)
+
+class Packages(models.Model):
+    name = models.CharField(max_length=100)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
+    img = models.ImageField(upload_to='pics')
+    duration = models.CharField(max_length=100)
+    price = models.IntegerField()
+    special = models.BooleanField(default=False)

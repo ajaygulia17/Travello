@@ -32,14 +32,14 @@
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									<li class="active"><a href="/">Home</a></li>
-									<li><a href="about.html">About us</a></li>
+									<li><a href="/about">About us</a></li>
 									{% if user.is_authenticated %}
 									<li><a href="accounts/logout">Logout</a></li>
 									{% else %}
 									<li><a href="accounts/login">Login</a></li>
 									<li><a href="accounts/register">Register</a></li>
 									{% endif %}
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="/contact">Contact</a></li>
 								</ul>
 							</nav>
 							<div class="header_phone ml-auto">Call us: 00-56 445 678 33</div>
@@ -76,11 +76,15 @@
 		</div>
 		<div class="menu_content">
 			<ul>
-				<li><a href="inex.html">Home</a></li>
-				<li><a href="about.html">About us</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="news.html">News</a></li>
-				<li><a href="contact.html">Contact</a></li>
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/about">About us</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="accounts/logout">Logout</a></li>
+				{% else %}
+				<li><a href="accounts/login">Login</a></li>
+				<li><a href="accounts/register">Register</a></li>
+				{% endif %}
+				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</div>
 		<div class="menu_social">
@@ -106,7 +110,7 @@
 
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style="background-image:url(static/images/home_slider.jpg)"></div>
+					<div class="background_image" style="background-image:url(static/images/home.jpg)"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
@@ -263,7 +267,11 @@
 								{% endif %}
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="/destination">{{dest.name}}</a></div>
+								{% if user.is_authenticated %}
+								<div class="destination_title"><a href="/destination?id={{dest.id}}">{{dest.name}}</a></div>
+								{% else %}
+								<div class="destination_title"><a href="#">{{dest.name}}</a></div>
+								{% endif %}
 								<div class="destination_subtitle"><p>{{dest.desc}}</p></div>
 								<div class="destination_price">From ${{dest.price}}</div>
 							</div>
