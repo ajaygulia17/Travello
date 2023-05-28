@@ -26,7 +26,7 @@ To set up the Travello website on your local machine, follow these steps:
    python manage.py loaddata sample_data.json
    ```
 
-5. Start the development server:
+5. Start the development server: 
    ```
    python manage.py runserver
    ```
